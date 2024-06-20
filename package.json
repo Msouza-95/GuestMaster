@@ -6,19 +6,20 @@
   "scripts": {
     "test": "jest",
     "dev": "tsnd -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "start": "node src/shared/infra/http/server.ts",
-    "typeorm": "tsnd -r tsconfig-paths/register node_modules/typeorm/cli",
-    "db:migrate": "typeorm migration:run",
-    "db:revert": "typeorm migration:revert",
-    "swagger-autogen": "node swagger.js"
+    "migration:create": "sh -c 'typeorm-ts-node-commonjs migration:create ./src/shared/infra/typeorm/migrations/$0'",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d ./src/shared/infra/typeorm/dataSource.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/shared/infra/typeorm/dataSource.ts"
+
   },
   "dependencies": {
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mssql": "^11.0.0",
     "prettier": "^3.3.2",
     "swagger-ui-express": "^5.0.1",
+    "tls": "^0.0.1",
     "tsyringe": "^4.8.0",
     "typeorm": "^0.3.20",
     "uuid": "^10.0.0",
