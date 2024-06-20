@@ -37,10 +37,23 @@ API permite:
 #### Documentação:
 - [Swagger](https://swagger.io/) : Ferramenta para documentação de APIs, permitindo a criação de documentação interativa e teste automatizado.
 
-### Installation
+### Instalação
 
 ```bash
 $ yarn install
+```
+### criar container Docker DB SqlServe
+
+```bash
+$ docker-compose up -d
+```
+Não conseguir criar a base de dados via docker, vai precisar aceessar SQL Server Management Studio com as credencias do arquivo .env e executar :
+
+```bash
+$ USE master;
+GO
+CREATE DATABASE guestmaster;
+
 ```
 
 ## Running the app
@@ -51,8 +64,7 @@ $ yarn dev
 
 # watch mode
 $ yarn start
-
-
+```
 ## Test
 
 ```bash
