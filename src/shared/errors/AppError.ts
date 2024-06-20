@@ -1,3 +1,8 @@
+
+
+/*
+@ classe para modelagem e tratamento de erros
+*/
 export default class AppError {
   public readonly statusCode: number;
   public readonly message: string;
