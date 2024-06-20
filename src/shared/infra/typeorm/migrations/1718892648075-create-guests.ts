@@ -28,6 +28,22 @@ export class CreateGuests1718892648075 implements MigrationInterface {
               type: 'nvarchar(20)',
             },
             {
+              name: 'birthdayDate',
+              type: 'date',
+            },
+            {
+              name: 'city',
+              type: 'varchar',
+            },
+            {
+              name: 'state',
+              type: 'varchar',
+            },
+            {
+              name: 'country',
+              type: 'varchar',
+            },
+            {
               name: 'created_at',
               type: 'datetime',
               default: 'GETDATE()',
