@@ -1,4 +1,4 @@
-import usersRouter from '@modules/user/infra/http/routes/users.routes';
+import usersRouter from 'module/user/infra/http/routes/users.routes';
 import { Router } from 'express';
 
 

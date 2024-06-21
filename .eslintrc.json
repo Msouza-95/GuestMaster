@@ -70,10 +70,16 @@
         }
       }
     ],
-    "import/no-extraneous-dependencies": "off" ,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.spec.js"
+        ]
+      }
+    ],
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-unused-vars": "off"
-
   },
   "settings": {
     "import/resolver": {

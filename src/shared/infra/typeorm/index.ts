@@ -1,4 +1,6 @@
+import 'reflect-metadata';
 import { AppDataSource } from "./dataSource";
+import '@shared/container';
 
 
 AppDataSource.initialize()
