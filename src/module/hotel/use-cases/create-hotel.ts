@@ -28,7 +28,7 @@ class CreateHotelUseCase{
     const hotelExist = await this.hotelRepository.findByName(name)
 
     if(hotelExist){
-      throw new AppError('Conflict, user already exists', 409)
+      throw new AppError('Conflict, Hotel already exists', 409)
 
     }
 
