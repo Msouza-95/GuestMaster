@@ -19,7 +19,7 @@ export class Room extends MyBaseEntity {
   @Column()
   room_type: string;
 
-  @Column()
+  @Column({default: 'Disponível'})
   status: string;
 
   @Column()

@@ -1,13 +1,9 @@
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "@shared/infra/typeorm/dataSource";
 import IUserRepository from "module/user/repositories/I-user-repository";
 import { Room } from "../entities/room.entity";
-import IRoomRepository from "module/room/repositories/I-room-repository";
+import IRoomRepository, { IFindByTypeRoom } from "module/room/repositories/I-room-repository";
 import { CreateRoomDTO } from "module/room/dtos/create-room-DTO";
-
-
-
-
 
 
 
@@ -23,7 +19,7 @@ class RoomRepository extends Repository<Room>  implements IRoomRepository{
       /* converte os type enum para string,
        pois o  sql serve não aceita type enum */
     const room = this.create({
-      status: String(data.status),
+      // status: String(data.status),
       room_type: String(data.room_type),
       room_number: data.room_number,
       hotel_id: data.hotel_id,
@@ -57,11 +53,26 @@ class RoomRepository extends Repository<Room>  implements IRoomRepository{
   }
 
 
-  public async findByType(room_type: string): Promise<Room | null> {
-    const room = await this.findOneBy({ room_type });
+  public async findByType({room_type, hotel_id}: IFindByTypeRoom): Promise<Room []> {
+    // retorna todos os quarto pelo um determinado hotel
+    const rooms = await this.find({where:{hotel_id, room_type}});
 
-    return room
+    return rooms
   }
+
+  // todos os quartp de um hotel
+  public async findByHotelID(hotel_id: string): Promise<Room[]> {
+    const rooms = await this.find({ where:{ hotel_id}});
+
+    return rooms
+  }
+
+  public async deleteRoom(room_id: string): Promise<DeleteResult>{
+    const result = await this.delete({id:room_id})
+
+    return result
+  }
+
 }
 
 export default RoomRepository
