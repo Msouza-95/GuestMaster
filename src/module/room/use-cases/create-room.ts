@@ -10,7 +10,6 @@ import { statusRoomEnum, typeRoomEnum } from "../dtos/create-room-DTO";
 interface IRequest {
   room_number: string;
   room_type: typeRoomEnum;
-  status: statusRoomEnum
   hotel_id: string
 }
 
@@ -24,7 +23,7 @@ class CreateRoomUseCase{
 
   ) {}
 
-   async execute({room_number, room_type, status,hotel_id}:IRequest):Promise<Room>{
+   async execute({room_number, room_type,hotel_id}:IRequest):Promise<Room>{
 
     /*
      Verifica se hotel é valido
@@ -39,7 +38,7 @@ class CreateRoomUseCase{
 
     // criar um  novo quarto em um hotel
 
-    const room = await this.roomRepository.createRoom({room_number,room_type,status,hotel_id})
+    const room = await this.roomRepository.createRoom({room_number,room_type,hotel_id})
 
     return room
   }
