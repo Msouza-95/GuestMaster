@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateBookings1718895613545 implements MigrationInterface {
 
@@ -52,8 +52,48 @@ export class CreateBookings1718895613545 implements MigrationInterface {
             default: 'GETDATE()',
           },
         ],
+
+
       }),
     );
+
+  // criar realção das tabelas
+    await queryRunner.createForeignKey(
+      'bookings',
+      new TableForeignKey({
+          name: 'FK_room_in_booking',
+          referencedTableName: 'rooms',
+          referencedColumnNames: ['id'],
+          columnNames: ['room_id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'NO ACTION',
+        }),
+    );
+
+    await queryRunner.createForeignKey(
+      'bookings',
+      new TableForeignKey({
+        name: 'FK_hotel_in_booking',
+        referencedTableName: 'hotels',
+        referencedColumnNames: ['id'],
+        columnNames: ['hotel_id'],
+        onUpdate: 'CASCADE',
+        onDelete: 'NO ACTION',
+        }),
+    );
+
+    await queryRunner.createForeignKey(
+      'bookings',
+      new TableForeignKey({
+        name: 'FK_guest_in_booking',
+        referencedTableName: 'guests',
+        referencedColumnNames: ['id'],
+        columnNames: ['guest_id'],
+        onUpdate: 'NO ACTION',
+        onDelete: 'NO ACTION',
+        }),
+    );
+
   }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

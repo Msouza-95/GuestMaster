@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
 export class CreateRooms1718893478232 implements MigrationInterface {
 
@@ -28,8 +28,8 @@ export class CreateRooms1718893478232 implements MigrationInterface {
               default: "'Disponível'",
             },
             {
-              name: 'price_per_night',
-              type: 'varchar',
+              name: 'hotel_id',
+              type: 'nvarchar(36)',
             },
             {
               name: 'created_at',
@@ -42,7 +42,20 @@ export class CreateRooms1718893478232 implements MigrationInterface {
               default: 'GETDATE()',
             },
           ],
+
         }),
+      );
+    // criar chave estrangeira
+      await queryRunner.createForeignKey(
+        'rooms',
+        new TableForeignKey({
+          name: 'FK_hotel_in_room',
+          referencedTableName: 'hotels',
+          referencedColumnNames: ['id'],
+          columnNames: ['hotel_id'],
+          onUpdate: 'NO ACTION',
+          onDelete: 'NO ACTION',
+          }),
       );
     }
 
