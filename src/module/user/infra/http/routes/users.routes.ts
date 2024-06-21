@@ -18,4 +18,6 @@ usersRouter.post('/', validateSchema(CreateUserDTO)
 ,userControler.create);
 
 
+usersRouter.get('/',userControler.show);
+
 export default usersRouter;

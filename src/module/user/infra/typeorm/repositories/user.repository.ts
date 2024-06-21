@@ -13,7 +13,6 @@ class UserRepository extends Repository<User>  implements IUserRepository{
       super(User, AppDataSource.manager);
   }
 
-
   //  cria e salva um user no banco
   public async createUser(data: ICreateUserDTO): Promise<User>{
 

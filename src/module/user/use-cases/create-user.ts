@@ -20,7 +20,7 @@ class CreateUserUseCase{
 
   ) {}
 
-   async execute({email,password,name}:IRequest):Promise<User| number>{
+   async execute({email,password,name}:IRequest):Promise<User>{
 
     /*
      Verifica se existe usuario com email fornecido.
@@ -32,6 +32,7 @@ class CreateUserUseCase{
       throw new AppError('conflict, user already exists', 409)
 
     }
+
 
     // criar hash na senha
      const hashPassword = await hash(password, 8);
