@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreateGuestDTO  = z.object({
+export const UpdateGuestDTO  = z.object({
  fullname : z.string(),
  email: z.string().email(),
  phone: z.string(),
@@ -8,8 +8,9 @@ export const CreateGuestDTO  = z.object({
  city :z.string(),
  state: z.string(),
  country: z.string(),
+ guest_id: z.string().uuid()
 })
 
 
 
-export type CreateGuestDTO = z.infer<typeof CreateGuestDTO>
+export type UpdateGuestDTO = z.infer<typeof UpdateGuestDTO>
