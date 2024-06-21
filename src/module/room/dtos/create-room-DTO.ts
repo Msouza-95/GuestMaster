@@ -9,8 +9,8 @@ export enum typeRoomEnum {
 }
 
 export enum statusRoomEnum {
+  DISPONIVEL = 'Disponível',
   OCUPADO = 'Ocupado',
-  LIVRE = 'Livre',
 }
 
 
@@ -18,7 +18,6 @@ export const  CreateRoomDTO = z.object({
  room_number : z.string(),
  room_type:z.enum([typeRoomEnum.CASAL, typeRoomEnum.MASTER,
   typeRoomEnum.SOLTEIRO, typeRoomEnum.STANDARD]),
- status: z.enum([statusRoomEnum.LIVRE, statusRoomEnum.OCUPADO]),
  hotel_id: z.string().uuid()
 })
 
