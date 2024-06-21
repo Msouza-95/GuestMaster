@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "@shared/infra/typeorm/dataSource";
 import IUserRepository from "module/user/repositories/I-user-repository";import { Hotel } from "../entities/hotel.entity";
 import IHotelRepository from "module/hotel/repositories/I-hotel-repository";
@@ -46,8 +46,18 @@ class HotelRepository extends Repository<Hotel>  implements IHotelRepository{
   }
 // buscar user pelo email
   public async findByName(name: string): Promise<Hotel | null> {
-      return await this.findOneBy({ name });
+
+    const hotel = await this.findOneBy({ name });
+
+    return hotel
   }
+
+  public async deleteHotel(hotel_id: string): Promise<DeleteResult> {
+    const result = await this.delete(hotel_id);
+
+    return result
+  }
+
 }
 
 export default HotelRepository
