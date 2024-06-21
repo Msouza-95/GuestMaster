@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import  CreateUserUseCase  from "module/user/use-cases/create-user"
 import ShowUserUseCase from "module/user/use-cases/show-user";
 import { container } from "tsyringe";
-import { z } from "zod";
+
 
 
 
@@ -27,8 +27,6 @@ export class UserControler{
 
 
     const showUserUseCase = container.resolve(ShowUserUseCase)
-
-
 
     const user = await showUserUseCase.execute()
 
