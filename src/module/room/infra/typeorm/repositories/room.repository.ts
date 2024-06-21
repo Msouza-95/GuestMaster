@@ -16,11 +16,20 @@ class RoomRepository extends Repository<Room>  implements IRoomRepository{
       super(Room, AppDataSource.manager);
   }
 
-  //  cria e salva um user no banco
+  //  cria e salva um room no banco
   public async createRoom(data: CreateRoomDTO): Promise<Room>{
 
-    const room = this.create(data)
 
+      /* converte os type enum para string,
+       pois o  sql serve não aceita type enum */
+    const room = this.create({
+      status: String(data.status),
+      room_type: String(data.room_type),
+      room_number: data.room_number,
+      hotel_id: data.hotel_id,
+    })
+
+    // save no banco
     await this.save(room)
 
     return room
