@@ -17,7 +17,17 @@ class BookingRepository extends Repository<Booking>  implements IBookingReposito
   //  cria e salva um dados no banco
   public async createBooking(data: CreateBookingDTO): Promise<Booking>{
 
-    const booking = this.create(data)
+
+
+    const booking = this.create({
+      start_date_booking: data.start_date_booking,
+      end_date_booking: data.end_date_booking,
+      total_price: data.total_price,
+      status: String(data.status),
+      hotel_id: data.hotel_id,
+      guest_id: data.guest_id,
+      room_id: data.room_id
+    })
 
     await this.save(booking)
 

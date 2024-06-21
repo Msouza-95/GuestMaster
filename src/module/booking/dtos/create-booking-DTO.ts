@@ -13,7 +13,7 @@ export const CreateBookingDTO = z.object({
  total_price: z.number(),
  status: z.enum([statusBookingEnum.CANCELADA, statusBookingEnum.CONFIRMADA
   ,statusBookingEnum.CHECK_IN,statusBookingEnum.CHECK_OUT]),
- Hotel_id: z.string().uuid(),
+ hotel_id: z.string().uuid(),
  guest_id: z.string().uuid(),
  room_id: z.string().uuid(),
 })
