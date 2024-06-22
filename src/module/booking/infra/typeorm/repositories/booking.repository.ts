@@ -17,8 +17,6 @@ class BookingRepository extends Repository<Booking>  implements IBookingReposito
   //  cria e salva um dados no banco
   public async createBooking(data: CreateBookingDTO): Promise<Booking>{
 
-
-
     const booking = this.create({
       start_date_booking: data.start_date_booking,
       end_date_booking: data.end_date_booking,
@@ -55,8 +53,26 @@ class BookingRepository extends Repository<Booking>  implements IBookingReposito
 
     return booking
   }
+  public async findByGuestId(guest_id: string): Promise<Booking[]> {
 
+    const bookings  =await this.find({where:{ guest_id}, relations:[ "guest", "hotel","room"]})
 
+    return bookings
+  }
+
+  public async findByDate(start_date: Date, end_date: Date): Promise<Booking[]> {
+
+    const bookings  =await this.createQueryBuilder("booking")
+    .leftJoinAndSelect("booking.room", "room")
+    .leftJoinAndSelect("booking.guest", "guest")
+    .leftJoinAndSelect("booking.hotel", "hotel")
+    .where("booking.created_at >= :start_date", { start_date })
+    .andWhere("booking.created_at <= :end_date", { end_date })
+    .getMany();
+
+    return bookings
+
+  }
 }
 
 export default BookingRepository

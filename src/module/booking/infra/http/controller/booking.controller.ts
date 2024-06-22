@@ -6,6 +6,10 @@ import UpdateHotelUseCase from "module/hotel/use-cases/update-hotel";
 
 
 import { container } from "tsyringe";
+import { Booking } from "../../typeorm/entities/booking.entity";
+import ManagerBookingUseCase from "module/booking/use-cases/manager-booking";
+import ShowBookingUseCase from "module/booking/use-cases/show-booking";
+import ReportBookingUseCase from "module/booking/use-cases/report-booking";
 
 
 export class BookingController{
@@ -16,7 +20,6 @@ export class BookingController{
     const {
         start_date_booking,
         end_date_booking,
-        status,
         total_price,
         hotel_id,
         guest_id,
@@ -38,41 +41,82 @@ export class BookingController{
 
     return response.status(201).json({booking: newBooking})
   }
-  async show(request: Request, response: Response): Promise<Response> {
+  async report(request: Request, response: Response): Promise<Response> {
+    const start_date = request.query.startDate as string
+    const end_date = request.query.endDate as string
 
-
-    const showHotelUseCase = container.resolve(ShowHotelUseCase)
-    const rooms = await showHotelUseCase.showExecute()
-
-    return response.status(200).json({rooms: rooms})
+    if (!start_date || !end_date) {
+      return response.status(400).send({ error: "start_date and end_date are required" });
   }
 
-  async read(request: Request, response: Response): Promise<Response> {
-    const {hotel_id} = request.params;
+    const reportBookingUseCase = container.resolve(ReportBookingUseCase)
 
-    const showHotelUseCase = container.resolve(ShowHotelUseCase)
-
-    const hotel = await showHotelUseCase.readExecute({hotel_id})
-
-
-    return response.status(200).json({hotel: hotel})
-  }
-  async update(request: Request, response: Response): Promise<Response> {
-    const {
-       name,
-      address,
-      description,
-      hotel_id } = request.body;
-
-      const updateHotelUseCase = container.resolve(UpdateHotelUseCase)
-    const rooms = await updateHotelUseCase.execute({
-      name,
-      address,
-      description,
-      hotel_id
+    const bookings = await reportBookingUseCase.execute({
+      start_date,
+      end_date,
     })
 
 
-    return response.status(201).json({rooms:rooms})
+    return response.status(200).json({bookings: bookings})
+  }
+  async show(request: Request, response: Response): Promise<Response> {
+    const {guest_id} = request.params;
+
+    const showBookingUseCase = container.resolve(ShowBookingUseCase)
+
+    const guests = await showBookingUseCase.execute({guest_id})
+
+
+    return response.status(200).json({guests: guests})
+  }
+  async checkIn(request: Request, response: Response): Promise<Response> {
+    const {
+      guest_id,
+      booking_id
+    } = request.body;
+
+      const managerBookingUseCase = container.resolve(ManagerBookingUseCase)
+    const result = await managerBookingUseCase.checkIn({
+      guest_id,
+      booking_id
+    })
+
+
+    return response.status(200).json({result})
+  }
+  async cancel(request: Request, response: Response): Promise<Response> {
+
+    const {
+      guest_id,
+      booking_id
+    } = request.body;
+
+      const managerBookingUseCase = container.resolve(ManagerBookingUseCase)
+
+
+      const result = await managerBookingUseCase.cancel({
+        guest_id,
+        booking_id
+      })
+
+
+    return response.status(200).json({result})
+  }
+  async checkOut(request: Request, response: Response): Promise<Response> {
+    const {
+      guest_id,
+      booking_id
+    } = request.body;
+
+      const managerBookingUseCase = container.resolve(ManagerBookingUseCase)
+
+
+      const result = await managerBookingUseCase.checkOut({
+        guest_id,
+        booking_id
+      })
+
+
+    return response.status(200).json({result})
   }
 }

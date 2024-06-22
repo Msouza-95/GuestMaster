@@ -4,7 +4,6 @@ import AppError from "@shared/errors/AppError";
 import IHotelRepository from "module/hotel/repositories/I-hotel-repository";
 import IGuestRepository from "module/guest/repositories/I-guest-repository";
 import IBookingRepository from "../repositories/I-booking-repository";
-import { statusBookingEnum } from "../dtos/create-booking-DTO";
 import IRoomRepository from "module/room/repositories/I-room-repository";
 import { Booking } from "../infra/typeorm/entities/booking.entity";
 import { statusRoomEnum } from "module/room/dtos/create-room-DTO";
@@ -45,6 +44,8 @@ class CreateBookingUseCase{
     /*
      Validações
     */
+
+     // verificar se o hotel existe
     const hotelExist = await this.hotelRepository.findById(hotel_id)
 
     if(hotelExist === null){
@@ -52,18 +53,28 @@ class CreateBookingUseCase{
 
     }
 
+    // verificar se guest existe
     const guestExist = await this.guestRepository.findById(guest_id)
 
     if(guestExist === null){
       throw new AppError("The geust d'not exists", 404)
 
     }
+
+    // verificar se o room existe
     const roomExist = await this.roomRepository.findById(room_id)
 
     if(roomExist === null){
       throw new AppError("The room d'not exists", 404)
     }
 
+    // verificar se o room pertece ao hotel informado
+    if(roomExist.hotel_id !== hotelExist.id){
+
+      throw new AppError("the room is not from the hotel", 409)
+    }
+
+    // verificar se o room estar disponivel
     if(roomExist.status=== statusRoomEnum.OCUPADO){
       throw new AppError("the room is occupied, try another", 409)
     }
@@ -78,6 +89,11 @@ class CreateBookingUseCase{
       guest_id,
       room_id
     })
+
+    // mudar o room para status de ocupado
+      roomExist.status = statusRoomEnum.OCUPADO;
+
+      await this.roomRepository.saveRoom(roomExist)
 
     return booking
   }

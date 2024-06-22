@@ -8,4 +8,6 @@ export default interface IBookingRepository {
   show(): Promise<Booking[]>;
   saveBooking(booking: Booking): Promise<Booking>;
   findById(booking_id: string): Promise<Booking | null>;
+  findByGuestId(guest_id: string): Promise<Booking []>;
+  findByDate(start_date: Date, end_date: Date): Promise<Booking []>;
 }

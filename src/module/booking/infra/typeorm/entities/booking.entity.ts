@@ -8,7 +8,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  Timestamp,
 } from 'typeorm';
 
 @Entity('bookings')
