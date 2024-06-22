@@ -22,6 +22,949 @@
     }
   },
   "paths": {
+    "/sessions": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Authentication",
+        "description": "Perform authentication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "integer"
+                  }
+                },
+                "example": {
+                  "email": "Email@example.com",
+                  "password": "senhaExample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Email or password invalid"
+          }
+        }
+      }
+    },
+    "/users": {
+    "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Criação de users",
+        "description": "Rota para criação de novos users, obs: não é possivel criar um user com email já existente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "uuid",
+                    "required" : true
+                  },
+                  "name": {
+                    "type": "string",
+                    "required" : true
+                  }
+                },
+                "example": {
+                  "email": "Email@example.com",
+                  "password": "senhaExample",
+                  "name": "nameExemple"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "409": {
+            "description": "conflict, user already exists"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Users cadastrados",
+        "description": "A rota retorna todos os users cadastrados ",
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/guests": {
+      "get": {
+        "tags": [
+          "Guests"
+        ],
+        "summary": " Hóspedes cadastrados ",
+        "description": "A rota retorna todos os Hóspedes cadastrado ",
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/guests/{guest_id}": {
+      "get": {
+        "tags": [
+          "Guests"
+        ],
+        "summary": " Hóspedes pelo id ",
+        "description": "A rota um Hóspedes atráves do seu id ",
+        "parameters": [
+          {
+            "name": "guest_id",
+            "in": "path",
+            "description": "Digite o id do hóspede que deseja buscar",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Invalid id, needs type uuid"
+          }
+        }
+      }
+    },
+    "/guests/": {
+    "post": {
+        "tags": [
+          "Guests"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Criação de Hóspedes",
+        "description": "Rota para criação de novos Hóspedes, obs: não é possivel criar um user com email já existente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "format": "phone",
+                    "required" : true
+                  },
+                  "fullname": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "birthdayDate": {
+                    "type": "date",
+                    "required" : true
+                  },
+                  "city": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "state": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "country": {
+                    "type": "string",
+                    "required" : true
+                  }
+                },
+                "example": {
+                  "fullname":"M Souza",
+                  "email": "email@gmail.com",
+                  "phone": "(71)992059832",
+                  "birthdayDate": "2024-06-22",
+                  "city": "salvador",
+                  "state":"Ba",
+                  "country": "Brasil"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "409": {
+            "description": "conflict, guest already exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    },
+    "/guests//": {
+      "put": {
+        "tags": [
+          "Guests"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar um hóspede",
+        "description": "Route para atualizar um hóspede",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "image_url": {
+                    "type": "string",
+                    "format": "url"
+                  },
+                  "gif": {
+                    "type": "string",
+                    "format": "url"
+                  },
+                  "need_equipments": {
+                    "type": "boolean"
+                  },
+                  "exercises_category_id": {
+                    "type": "string",
+                    "format": "uid"
+                  },
+                  "id": {
+                    "type": "string",
+                    "format": "uid"
+                  },
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "format": "phone",
+                    "required" : true
+                  },
+                  "fullname": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "birthdayDate": {
+                    "type": "date",
+                    "required" : true
+                  },
+                  "city": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "state": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "country": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "guest_id": {
+                    "type": "string",
+                    "required" : true
+                  }
+                }
+              },
+                "example": {
+                  "fullname":"M Souza",
+                  "email": "email@gmail.com",
+                  "phone": "(71)992059832",
+                  "birthdayDate": "2024-06-22",
+                  "city": "salvador",
+                  "state":"Ba",
+                  "country": "Brasil",
+                  "guest_id": "type uuid"
+                }
+
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful"
+          },
+          "404": {
+            "description": "The guest d'not exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          },
+          "409": {
+            "description": "conflict, The guest already exists"
+          }
+        }
+      }
+    },
+    "/guests/{guest_id}/": {
+      "delete": {
+        "tags": [
+          "Guests"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Delete Hóspede por id",
+        "description": "deletar pelo id",
+        "parameters": [
+          {
+            "name": "guest_id",
+            "in": "path",
+            "description": "Digite o id do Hóspede que deseja deletar ",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          },
+          "404": {
+            "description": "The guest d'not exists"
+          }
+        }
+      }
+    },
+    "/hotels": {
+      "get": {
+        "tags": [
+          "Hotels"
+        ],
+        "summary": " hotéis cadastrados ",
+        "description": "A rota retorna todos os hotéis cadastrados ",
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }
+        }
+      }
+    },
+    "/hotels/{hotel_id}": {
+      "get": {
+        "tags": [
+          "Hotels"
+        ],
+        "summary": " Hotels pelo id ",
+        "description": "A rota um Hotel atráves do seu id ",
+        "parameters": [
+          {
+            "name": "hotel_id",
+            "in": "path",
+            "description": "Digite o id do hotel que deseja buscar",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Invalid id, needs type uuid"
+          }
+        }
+      }
+    },
+    "/hotels/": {
+    "post": {
+        "tags": [
+          "Hotels"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Criação de Hoteís",
+        "description": "Rota para criação de novos Hoteís, obs: não é possivel criar um hotel com nome já existente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required":true
+                  },
+                  "address": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required" : true
+                  }
+                },
+                "example": {
+                  "name" : "Hotel 1%",
+                  "address":"Rua direta, salvador -Ba",
+                  "description": "O melhor da Região"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "409": {
+            "description": "conflict, Hotel already exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    },
+    "/hotels//": {
+      "put": {
+        "tags": [
+          "Hotels"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar um hotel",
+        "description": "Route para atualizar um hotel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required":true
+                  },
+                  "address": {
+                    "type": "string",
+                    "required" : true
+                  },
+                  "description": {
+                    "type": "string",
+                    "required" : true
+                  }
+                },
+                "example": {
+                  "name" : "Hotel 2%",
+                  "address":"Rua direta, salvador -Ba",
+                  "description": "O segundo melhor da Região",
+                  "hotel_id": "type uuid"
+                }
+
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful"
+          },
+          "404": {
+            "description": "The hotel d'not exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    },
+    "/hotels/{hotel_id}/": {
+      "delete": {
+        "tags": [
+          "Hotels"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Delete Hotel por id",
+        "description": "deletar pelo id",
+        "parameters": [
+          {
+            "name": "hotel_id",
+            "in": "path",
+            "description": "Digite o id do hotel que deseja deletar ",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          },
+          "404": {
+            "description": "The hotel d'not exists"
+          }
+        }
+      }
+    },
+    "/rooms/hotel": {
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Quartos de um hotel ",
+        "description": "A rota retorna todos os quarto pertecente a um determinado hotel ",
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "204": {
+            "description": "The hotel d'not exists"
+          }
+        }
+      }
+    },
+    "/rooms/room_id}": {
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": " Quarto pelo id ",
+        "description": "A rota um quarto atráves do seu id ",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "description": "Digite o id do quarto que deseja buscar",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Invalid id, needs type uuid"
+          }
+        }
+      }
+    },
+    "/rooms/": {
+    "post": {
+        "tags": [
+          "Rooms"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Criação de Quartos",
+        "description": "Rota para cria um quarto dentro de um hotel, todos os quartos criados começam com status de disponivel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "room_number": {
+                    "type": "string",
+                    "required":true
+                  },
+                  "room_type": {
+                    "type": "enum",
+                    "required" : true
+                  },
+                  "hotel_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  }
+                },
+                  "example": {
+                  "room_number": "Ab",
+	                "room_type": "Master",
+	                "hotel_id": "397F762C-5644-4859-B8DC-DBFC39237AF8"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    },
+    "/rooms//": {
+      "put": {
+        "tags": [
+          "Rooms"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar um quarto",
+        "description": "Route para atualizar um quarto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "room_number": {
+                    "type": "string",
+                    "required":true
+                  },
+                  "room_type": {
+                    "type": "enum",
+                    "required" : true
+                  },
+                  "hotel_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  },
+                  "room_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  }
+                },
+                  "example": {
+                  "room_number": "XZ",
+	                "room_type": "Casal",
+	                "hotel_id": "397F762C-5644-4859-B8DC-DBFC39237AF8",
+	                "room_id": "997F762C-5644-4859-B8DC-DBFC39237AF9"
+                }
+
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful"
+          },
+          "404": {
+            "description": "The hotel or room d'not exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    },
+    "/rooms/{room_id}/": {
+      "delete": {
+        "tags": [
+          "Rooms"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Delete room por id",
+        "description": "deletar um quarto de dentro de um hotel",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "description": "Digite o id do room que deseja deletar ",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "404": {
+            "description": "The room d'not exists"
+          }
+        }
+      }
+
+    },
+    "/bookings/report": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Relatório por data  ",
+        "description": "A rota retorna todas as reserva de um data inicial até uma data final, obs: a data inicial não pode ser maior do que a final",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "no formato ISO 8601: YYYY-MM-DD.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "no formato ISO 8601: YYYY-MM-DD.",
+            "required": true,
+            "type": "string"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "409": {
+            "description": "The start date must be less than the end date"
+          }
+        }
+      }
+    },
+    "/bookings/guest/{guest_id}": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": " Reserva de um Hóspede ",
+        "description": " Retorna todas as reservas de um determinado hóspede",
+        "parameters": [
+          {
+            "name": "guest_id",
+            "in": "path",
+            "description": "Digite o id do Hóspede que deseja buscar as reservas",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Invalid id, needs type uuid"
+          },
+          "401": {
+            "description": "The geust d'not exists"
+          }
+        }
+      }
+    },
+    "/bookings/checkin": {
+    "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Realizar Check-in",
+        "description": " Confirmar a entrada de um hóspede ao hotel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "booking_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  },
+                  "guest_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  }
+                },
+                  "example": {
+                   "booking_id": "AABCEBDD-07ED-4A1D-9EA0-241D9D00904F",
+		               "guest_id": "86782D4A-C11C-4115-A1B4-0C0024377085"
+
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          },
+          "404": {
+            "description": "The guest or booking d'not exists"
+          }
+        }
+      }
+    },
+    "/bookings/checkout": {
+      "put": {
+        "tags": [
+          "Bookings"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Realizar Check-Out",
+        "description": "Confirmar a saída de um hóspede ao hotel",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "booking_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  },
+                  "guest_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  }
+                },
+                  "example": {
+                   "booking_id": "AABCEBDD-07ED-4A1D-9EA0-241D9D00904F",
+		               "guest_id": "86782D4A-C11C-4115-A1B4-0C0024377085"
+
+                }
+
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful"
+          },
+          "404": {
+            "description": "The guest or booking d'not exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    },
+    "/bookings/cancel": {
+      "put": {
+        "tags": [
+          "Bookings"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Cancelar um reserva",
+        "description": "Rota para cancelar um reserva ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "booking_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  },
+                  "guest_id": {
+                    "type": "string",
+                    "required" : true,
+                    "format": "uuid"
+                  }
+                },
+                  "example": {
+                   "booking_id": "AABCEBDD-07ED-4A1D-9EA0-241D9D00904F",
+		               "guest_id": "86782D4A-C11C-4115-A1B4-0C0024377085"
+
+                }
+
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful"
+          },
+          "404": {
+            "description": "The guest or booking d'not exists"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          }
+        }
+      }
+    }
 
   }
 }
