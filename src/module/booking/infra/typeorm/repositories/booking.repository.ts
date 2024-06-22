@@ -23,7 +23,6 @@ class BookingRepository extends Repository<Booking>  implements IBookingReposito
       start_date_booking: data.start_date_booking,
       end_date_booking: data.end_date_booking,
       total_price: data.total_price,
-      status: String(data.status),
       hotel_id: data.hotel_id,
       guest_id: data.guest_id,
       room_id: data.room_id

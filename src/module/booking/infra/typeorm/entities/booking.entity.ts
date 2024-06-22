@@ -17,7 +17,7 @@ export class Booking extends MyBaseEntity {
   @Column()
   total_price: number;
 
-  @Column()
+  @Column({default: 'Confirmada'})
   status: string;
 
   @Column()

@@ -6,16 +6,14 @@ import IGuestRepository from "module/guest/repositories/I-guest-repository";
 import IBookingRepository from "../repositories/I-booking-repository";
 import { statusBookingEnum } from "../dtos/create-booking-DTO";
 import IRoomRepository from "module/room/repositories/I-room-repository";
-import { Room } from "module/room/infra/typeorm/entities/room.entity";
 import { Booking } from "../infra/typeorm/entities/booking.entity";
 import { statusRoomEnum } from "module/room/dtos/create-room-DTO";
 
 
 interface IRequest {
- start_date_booking : Date;
- end_date_booking : Date;
+ start_date_booking : string;
+ end_date_booking: string;
  total_price: number;
- status: statusBookingEnum;
  hotel_id: string;
  guest_id: string;
  room_id: string;
@@ -30,15 +28,15 @@ class CreateBookingUseCase{
     private hotelRepository: IHotelRepository,
     @inject('GuestRepository')
     private guestRepository: IGuestRepository,
-    @inject('BookinglRepository')
+    @inject('BookingRepository')
     private bookingRepository: IBookingRepository,
 
   ) {}
 
    async execute({
-    start_date_booking,
+     start_date_booking,
      end_date_booking,
-     status,total_price,
+     total_price,
      hotel_id,
      guest_id,
      room_id
@@ -76,7 +74,6 @@ class CreateBookingUseCase{
       start_date_booking,
       end_date_booking,
       total_price,
-      status,
       hotel_id,
       guest_id,
       room_id
