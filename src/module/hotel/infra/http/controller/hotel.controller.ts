@@ -19,22 +19,22 @@ export class HotelController{
     const createHotelUseCase = container.resolve(CreateHotelUseCase)
 
           // envia os dados para serviço de criação
-    const newRoom = await createHotelUseCase.execute({
+    const newHotel = await createHotelUseCase.execute({
       name,
       address,
       description
     })
 
-    return response.status(201).json({room: newRoom})
+    return response.status(201).json({hotel: newHotel})
   }
   async show(request: Request, response: Response): Promise<Response> {
 
 
     const showHotelUseCase = container.resolve(ShowHotelUseCase)
 
-    const rooms = await showHotelUseCase.showExecute()
+    const hotels = await showHotelUseCase.showExecute()
 
-    return response.status(200).json({rooms: rooms})
+    return response.status(200).json({hotels: hotels})
   }
 
   async read(request: Request, response: Response): Promise<Response> {
@@ -64,7 +64,7 @@ export class HotelController{
       hotel_id } = request.body;
 
       const updateHotelUseCase = container.resolve(UpdateHotelUseCase)
-    const rooms = await updateHotelUseCase.execute({
+    const hotel = await updateHotelUseCase.execute({
       name,
       address,
       description,
@@ -72,6 +72,6 @@ export class HotelController{
     })
 
 
-    return response.status(201).json({rooms:rooms})
+    return response.status(201).json({hotel:hotel})
   }
 }
