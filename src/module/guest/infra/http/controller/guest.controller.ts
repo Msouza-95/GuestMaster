@@ -1,3 +1,4 @@
+import AppError from "@shared/errors/AppError";
 import { Request, Response } from "express";
 import CreateGuestUseCase from "module/guest/use-cases/create-guest";
 import DeleteGuestUseCase from "module/guest/use-cases/delete-guest";
@@ -5,6 +6,7 @@ import ShowGuestUseCase from "module/guest/use-cases/show-guest";
 import UpdateGuestUseCase from "module/guest/use-cases/update-guest";
 
 import { container } from "tsyringe";
+import { isUuid } from "uuidv4";
 
 
 export class GuestController{
@@ -49,6 +51,12 @@ export class GuestController{
 
   async read(request: Request, response: Response): Promise<Response> {
     const {guest_id} = request.params;
+
+      const isuuud =  isUuid(guest_id)
+
+      if(!isuuud){
+        throw new AppError("Invalid id, needs type uuid", 400)
+      }
 
     const showGuestUseCase = container.resolve(ShowGuestUseCase)
 

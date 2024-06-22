@@ -1,3 +1,4 @@
+import AppError from "@shared/errors/AppError";
 import { Request, Response } from "express";
 import CreateHotelUseCase from "module/hotel/use-cases/create-hotel";
 import DeleteHotelUseCase from "module/hotel/use-cases/delete-hotel";
@@ -6,6 +7,7 @@ import UpdateHotelUseCase from "module/hotel/use-cases/update-hotel";
 
 
 import { container } from "tsyringe";
+import { isUuid } from "uuidv4";
 
 
 export class HotelController{
@@ -39,6 +41,12 @@ export class HotelController{
 
   async read(request: Request, response: Response): Promise<Response> {
     const {hotel_id} = request.params;
+
+    const isuuud =  isUuid(hotel_id)
+
+      if(!isuuud){
+        throw new AppError("Invalid id, needs type uuid", 400)
+      }
 
     const showHotelUseCase = container.resolve(ShowHotelUseCase)
 

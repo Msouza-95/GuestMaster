@@ -45,6 +45,12 @@ export class RoomController{
   async read(request: Request, response: Response): Promise<Response> {
     const {room_id} = request.params;
 
+    const isuuud =  isUuid(room_id)
+
+      if(!isuuud){
+        throw new AppError("Invalid id, needs type uuid", 400)
+      }
+
     const showRoomUseCase = container.resolve(ShowRoomUseCase)
 
     const room = await showRoomUseCase.readExecute(room_id)

@@ -4,9 +4,6 @@ import ShowUserUseCase from "module/user/use-cases/show-user";
 import { container } from "tsyringe";
 
 
-
-
-
 export class UserControler{
 
   async create(request: Request, response: Response): Promise<Response> {
@@ -30,6 +27,6 @@ export class UserControler{
 
     const user = await showUserUseCase.execute()
 
-    return response.status(201).json({user: user})
+    return response.status(200).json({user: user})
   }
 }
