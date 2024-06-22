@@ -77,7 +77,8 @@ CREATE DATABASE guestmaster;
 ```
 ### Executar a API
 
-  Primeiro verificar se o serviço node no docker subiu
+  Criei uma imagem docker da api node, mas tem um erro que não conseguir resolver até então. esse caso serviço vai subir e ficar disponivel em:
+  
 ```bash
   # acessar a rota de documentação swagger da api
 
@@ -85,14 +86,16 @@ CREATE DATABASE guestmaster;
 
 ```
 
-### Caso não funcione
-
+### Executar corretamente
+Já que api do docker não ta funcionando, pare o serviço docker
 ```bash
-#Subir docker node
+#para docker node
 
-$ docker start guest_master_app
+$ docker sto guest_master_app
 
-# ou executar a api dirreto da máquina
+# o serviço do sql serve deve continuar
+
+#  executar a api direto da máquina
 
 $ Yarn start
 
