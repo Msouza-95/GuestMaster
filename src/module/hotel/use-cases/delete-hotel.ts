@@ -2,6 +2,7 @@
 import { inject, injectable } from "tsyringe";;
 import { DeleteResult } from "typeorm";
 import IHotelRepository from "../repositories/I-hotel-repository";
+import AppError from "@shared/errors/AppError";
 
 
 interface IRequest {
@@ -20,11 +21,26 @@ class DeleteHotelUseCase{
 
   ) {}
 
-   async execute({hotel_id}:IRequest):Promise<DeleteResult>{
+   async execute({hotel_id}:IRequest):Promise<IResponse>{
 
-    const result = await this.hotelRepository.deleteHotel(hotel_id)
+    let result
+    try {
 
-   return result
+      result = await this.hotelRepository.deleteHotel(hotel_id)
+    }
+    catch(err){
+      throw new AppError("A hotel can only be deleted when it has no room", 404)
+    }
+
+
+
+    if(result.affected === 0) {
+      throw new AppError("The room d'not exists", 404)
+    }
+
+   return { hotel_id, status: "successfully deleted"}
+
+
    }
 }
 
