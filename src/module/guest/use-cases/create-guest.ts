@@ -1,8 +1,8 @@
 
 import { inject, injectable } from "tsyringe";;
 import AppError from "@shared/errors/AppError";
-import IHotelRepository from "module/hotel/repositories/I-hotel-repository";
 import IGuestRepository from "../repositories/I-guest-repository";
+import { Guest } from "../infra/typeorm/entities/guest.entity";
 
 
 
@@ -10,7 +10,7 @@ interface IRequest {
     fullname : string;
     email: string;
     phone: string;
-    birthdatDate: Date;
+    birthdayDate: string;
     city :string;
     state: string;
     country: string;
@@ -24,7 +24,15 @@ class CreateGuestUseCase{
 
   ) {}
 
-   async execute({fullname,email,phone,birthdatDate,city,state,country}:IRequest):Promise<Room>{
+   async execute({
+    fullname,
+    email,
+    phone,
+    birthdayDate,
+    city,
+    state,
+    country
+  }:IRequest):Promise<Guest>{
 
     /*
      Verifica se guest  já foi cadastrado
@@ -42,8 +50,9 @@ class CreateGuestUseCase{
       email,
       fullname,
       phone,
-      birthdatDate,
-      city,state,
+      birthdayDate,
+      city,
+      state,
       country
     })
 

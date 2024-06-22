@@ -30,7 +30,8 @@ class UpdateGuestUseCase{
     birthdayDate,
     city,
     state,
-    guest_id
+    guest_id,
+    country
   }:IRequest):Promise<Guest>{
 
     /*
@@ -47,8 +48,8 @@ class UpdateGuestUseCase{
     guest.phone =phone;
     guest.state =state;
     guest.birthdayDate =birthdayDate;
-    guest.state =state;
-    guest.state =state
+    guest.city =city;
+    guest.country =country
 
     await this.guestRepository.saveGuest(guest)
 
