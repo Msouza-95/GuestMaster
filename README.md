@@ -77,7 +77,7 @@ CREATE DATABASE guestmaster;
 ```
 ### Executar a API
 
-  Criei uma imagem docker da api node, mas tem um erro que não conseguir resolver até então. esse caso serviço vai subir e ficar disponivel em:
+  Criei uma imagem docker da api node, mas tem um erro que não conseguir resolver até então. Nesse caso o serviço vai subir e ficar disponivel em:
   
 ```bash
   # acessar a rota de documentação swagger da api
@@ -87,7 +87,7 @@ CREATE DATABASE guestmaster;
 ```
 
 ### Executar corretamente
-Já que api do docker não ta funcionando, pare o serviço docker
+Já que api do docker não ta funcionando, pare o serviço docker!!
 ```bash
 #para docker node
 
