@@ -14,6 +14,7 @@ hotelRouter.get('/',hotelController.show);
 hotelRouter.get('/:hotel_id',hotelController.read );
 hotelRouter.post('/', validateSchema(CreateHotelDTO),hotelController.create );
 hotelRouter.put('/', validateSchema(UpdateHotelDTO),hotelController.update );
+hotelRouter.delete('/:hotel_id',hotelController.delete );
 
 
 export default hotelRouter
