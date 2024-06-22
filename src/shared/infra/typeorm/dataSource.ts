@@ -4,7 +4,8 @@ import * as tls from 'tls';
 
 dotenv.config();
 
-// Configure o agente TLS globalmente para aceitar certificados autoassinados
+const isDevelopment = process.env.NODE_ENV === 'dev';
+
 const tlsConfig: tls.ConnectionOptions = {
   rejectUnauthorized: false // Configuração para aceitar certificados autoassinados
 };
@@ -19,11 +20,11 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [
-        './dist/**/*.entity{.ts,.js}'
-    ],
-    migrations: [
-        './src/shared/infra/typeorm/migrations/*{.ts,.js}',
-    ],
+      isDevelopment ? './src/**/*.entity.ts' : './dist/**/*.entity.js'
+  ],
+  migrations: [
+      isDevelopment ? './src/shared/infra/typeorm/migrations/*.ts' : './dist/shared/infra/typeorm/migrations/*.js'
+  ],
 
     options: {
         enableArithAbort: true,

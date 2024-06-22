@@ -7,8 +7,9 @@ import HotelRepository from 'module/hotel/infra/typeorm/repositories/hotel.repos
 import IHotelRepository from 'module/hotel/repositories/I-hotel-repository';
 import RoomRepository from 'module/room/infra/typeorm/repositories/room.repository';
 import IRoomRepository from 'module/room/repositories/I-room-repository';
-import CreateRoomUseCase from 'module/room/use-cases/create-room';
 import UserRepository from 'module/user/infra/typeorm/repositories/user.repository';
+import UsersRefreshesTokensRepository from 'module/user/infra/typeorm/repositories/users-refreshes-tokens.repository';
+import IUsersRefreshesTokensRepository from 'module/user/repositories/I-User-refreshes-tokens-repository';
 import IUserRepository from 'module/user/repositories/I-user-repository';
 import { container } from 'tsyringe';
 
@@ -37,5 +38,11 @@ container.registerSingleton<IHotelRepository>(
   'HotelRepository',
   HotelRepository
 );
+
+container.registerSingleton<IUsersRefreshesTokensRepository>(
+  'UsersRefreshesTokensRepository',
+  UsersRefreshesTokensRepository
+);
+
 
 

@@ -1,15 +1,11 @@
 import { Request, Response } from "express";
-import CreateBookingUseCase from "module/booking/use-cases/create-booking";
-import CreateHotelUseCase from "module/hotel/use-cases/create-hotel";
-import ShowHotelUseCase from "module/hotel/use-cases/show-hotel";
-import UpdateHotelUseCase from "module/hotel/use-cases/update-hotel";
-
 
 import { container } from "tsyringe";
-import { Booking } from "../../typeorm/entities/booking.entity";
+
 import ManagerBookingUseCase from "module/booking/use-cases/manager-booking";
 import ShowBookingUseCase from "module/booking/use-cases/show-booking";
 import ReportBookingUseCase from "module/booking/use-cases/report-booking";
+import CreateBookingUseCase from "module/booking/use-cases/create-booking";
 
 
 export class BookingController{

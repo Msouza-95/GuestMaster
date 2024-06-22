@@ -1,8 +1,8 @@
 
-import { MyBaseEntity } from '@shared/infra/typeorm/baseEntities/base.entities';
-import { Guest } from 'module/guest/infra/typeorm/entities/guest.entity';
-import { Hotel } from 'module/hotel/infra/typeorm/entities/hotel.entity';
-import { Room } from 'module/room/infra/typeorm/entities/room.entity';
+import { MyBaseEntity } from '@module/user/infra/typeorm/entities/base.entity';
+import { Guest } from '@module/guest/infra/typeorm/entities/guest.entity';
+import { Hotel } from '@module/hotel/infra/typeorm/entities/hotel.entity';
+import { Room } from '@module/room/infra/typeorm/entities/room.entity';
 import {
   Column,
   Entity,

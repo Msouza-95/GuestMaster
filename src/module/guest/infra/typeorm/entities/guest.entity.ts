@@ -1,6 +1,6 @@
 
-import { MyBaseEntity } from '@shared/infra/typeorm/baseEntities/base.entities';
-import { Booking } from 'module/booking/infra/typeorm/entities/booking.entity';
+import { MyBaseEntity } from '@module/user/infra/typeorm/entities/base.entity';
+import { Booking } from '@module/booking/infra/typeorm/entities/booking.entity';
 import {
   Column,
   Entity,

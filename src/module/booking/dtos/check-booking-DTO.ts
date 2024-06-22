@@ -1,6 +1,4 @@
 import {  z } from "zod";
-import { statusBookingEnum } from "./create-booking-DTO";
-
 
 export const CheckBookingDTO = z.object({
 

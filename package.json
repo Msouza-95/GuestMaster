@@ -7,16 +7,18 @@
     "test": "jest",
     "dev": "tsnd -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "node src/shared/infra/http/server.ts",
-    "migration:create": "sh -c 'typeorm-ts-node-commonjs migration:create ./src/shared/infra/typeorm/migrations/$0'",
-    "migration:run": "typeorm-ts-node-commonjs migration:run -d ./src/shared/infra/typeorm/dataSource.ts",
-    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/shared/infra/typeorm/dataSource.ts"
+    "typeorm": "tsnd -r tsconfig-paths/register node_modules/typeorm/cli",
+    "migration:run": "yarn typeorm migration:run -d src/shared/infra/typeorm/dataSource.ts",
+    "migration:revert": "yarn typeorm migration:revert -d src/shared/infra/typeorm/dataSource.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "bcryptjs": "^2.4.3",
     "common": "^0.2.5",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "eslint-plugin-import": "^2.29.1",

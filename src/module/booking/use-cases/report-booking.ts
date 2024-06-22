@@ -1,7 +1,6 @@
 
 import { inject, injectable } from "tsyringe";;
 import AppError from "@shared/errors/AppError";
-import IGuestRepository from "module/guest/repositories/I-guest-repository";
 import IBookingRepository from "../repositories/I-booking-repository";
 import { Booking } from "../infra/typeorm/entities/booking.entity";
 

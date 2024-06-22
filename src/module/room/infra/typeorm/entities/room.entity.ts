@@ -1,7 +1,7 @@
 
-import { MyBaseEntity } from '@shared/infra/typeorm/baseEntities/base.entities';
-import { Booking } from 'module/booking/infra/typeorm/entities/booking.entity';
-import { Hotel } from 'module/hotel/infra/typeorm/entities/hotel.entity';
+import { MyBaseEntity } from '@module/user/infra/typeorm/entities/base.entity';
+import { Booking } from '@module/booking/infra/typeorm/entities/booking.entity';
+import { Hotel } from '@module/hotel/infra/typeorm/entities/hotel.entity';
 import {
   Column,
   Entity,

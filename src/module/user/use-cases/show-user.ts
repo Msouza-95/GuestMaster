@@ -14,6 +14,8 @@ class ShowUserUseCase{
 
    async execute():Promise<User[]>{
 
+
+
     const users = await this.userRepository.show()
 
     return users

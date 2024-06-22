@@ -1,9 +1,10 @@
 
-import { MyBaseEntity } from '@shared/infra/typeorm/baseEntities/base.entities';
+
 import {
   Column,
   Entity,
 } from 'typeorm';
+import { MyBaseEntity } from './base.entity';
 
 @Entity('users')
 export class User extends MyBaseEntity {

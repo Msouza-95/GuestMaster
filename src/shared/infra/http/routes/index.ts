@@ -4,6 +4,7 @@ import roomRouter from 'module/room/infra/http/routes/room.routes';
 import hotelRouter from 'module/hotel/infra/http/routes/hotel.routes';
 import guestRouter from 'module/guest/infra/http/routes/guest.routes';
 import bookingRouter from 'module/booking/infra/http/routes/booking.routes';
+import sessionsRouter from 'module/user/infra/http/routes/sessions.routes';
 
 
 const routes = Router();
@@ -15,6 +16,7 @@ routes.use('/rooms', roomRouter);
 routes.use('/hotels', hotelRouter);
 routes.use('/guests', guestRouter);
 routes.use('/bookings', bookingRouter);
+routes.use('/sessions', sessionsRouter);
 
 
 

@@ -1,10 +1,9 @@
 import { Repository } from "typeorm";
-import { User } from "../entities/user.entity";
+
 import { AppDataSource } from "@shared/infra/typeorm/dataSource";
 import IUserRepository from "module/user/repositories/I-user-repository";
-import { ICreateUserDTO } from "module/guest/dtos/create-user-DTO";
-
-
+import { CreateUserDTO } from "module/user/dtos/create-user-DTO";
+import { User } from "../entities/user.entity";
 
 
 
@@ -14,7 +13,7 @@ class UserRepository extends Repository<User>  implements IUserRepository{
   }
 
   //  cria e salva um user no banco
-  public async createUser(data: ICreateUserDTO): Promise<User>{
+  public async createUser(data: CreateUserDTO): Promise<User>{
 
     const user = this.create(data)
 
@@ -49,7 +48,10 @@ class UserRepository extends Repository<User>  implements IUserRepository{
 
 // buscar user pelo email
   public async findByEmail(email: string): Promise<User | null> {
-      return await this.findOneBy({ email });
+
+    const user =await this.findOneBy({email})
+
+    return user
   }
 }
 
