@@ -38,5 +38,4 @@ container.registerSingleton<IHotelRepository>(
   HotelRepository
 );
 
-container.registerSingleton<CreateRoomUseCase>(
-  CreateRoomUseCase);
+
