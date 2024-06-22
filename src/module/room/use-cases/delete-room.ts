@@ -24,11 +24,16 @@ class DeleteRoomUseCase{
 
   ) {}
 
-   async execute({room_id}:IRequest):Promise<DeleteResult>{
+   async execute({room_id}:IRequest):Promise<IResponse>{
 
     const result = await this.roomRepository.deleteRoom(room_id)
 
-   return result
+    if(result.affected === 0) {
+      throw new AppError("The room d'not exists", 404)
+    }
+
+   return { room_id, status: "successfully deleted"}
+
    }
 }
 
