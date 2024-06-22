@@ -5,6 +5,8 @@ import DeleteRoomUseCase from "module/room/use-cases/delete-room";
 import UpdateRoomUseCase from "module/room/use-cases/update-room";
 
 import { container } from "tsyringe";
+import { isUuid } from "uuidv4";
+import AppError from "@shared/errors/AppError";
 
 
 export class RoomController{
