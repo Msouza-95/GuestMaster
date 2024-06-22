@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [
-        './src/**/*.entity{.ts,.js}'
+        './dist/**/*.entity{.ts,.js}'
     ],
     migrations: [
         './src/shared/infra/typeorm/migrations/*{.ts,.js}',
