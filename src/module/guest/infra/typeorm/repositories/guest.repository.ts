@@ -1,14 +1,9 @@
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 
 import { AppDataSource } from "@shared/infra/typeorm/dataSource";
-import IUserRepository from "module/user/repositories/I-user-repository";
 import { Guest } from "../entities/guest.entity";
 import IGuestRepository from "module/guest/repositories/I-guest-repository";
 import { CreateGuestDTO } from "module/guest/dtos/create-guest-DTO";
-
-
-
-
 
 
 class GuestRepository extends Repository<Guest>  implements IGuestRepository{
@@ -57,6 +52,12 @@ class GuestRepository extends Repository<Guest>  implements IGuestRepository{
     return guest
   }
 
+  public async deleteGuest(guest_id: string): Promise<DeleteResult> {
+    const result =await this.delete({id: guest_id})
+
+    return result
+
+  }
 
 }
 
